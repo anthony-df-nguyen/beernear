@@ -5,7 +5,7 @@ import SearchResultsBox from "../components/SearchResultsBox";
 import getBreweries from "../utilities/getBreweries";
 
 export default function Home() {
-  const [currentMode, updateCurrentMode] = useState("zip");
+  const [currentMode, updateCurrentMode] = useState("city");
   const [fetchedBreweries, updateFetchedBreweries] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
