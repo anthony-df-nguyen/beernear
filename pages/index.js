@@ -2,17 +2,16 @@ import Head from "next/head";
 import React, { useState } from "react";
 import ModeSelector from "../components/ModeSelector";
 import SearchResultsBox from "../components/SearchResultsBox";
+import getBreweries from "../utilities/getBreweries";
 
 export default function Home() {
-  //Set a state that represents an array of the breweries fetched, initially starts out as an empty array
-  const fakeBreweryList = [
-    { name: "Beer Me Bitch" },
-    { name: "Black Out" },
-    { name: "White Girl Wasted" },
-  ];
-
   const [currentMode, updateCurrentMode] = useState("zip");
   const [fetchedBreweries, updateFetchedBreweries] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const search = e.target.form[0].value;
+    getBreweries(search, currentMode, updateFetchedBreweries);
+  }
 
   return (
     <div className="">
@@ -58,8 +57,8 @@ export default function Home() {
               {/* Zip Code Input */}
               {currentMode === "zip" && (
                 <div className="w-full sm:max-w-xs">
-                  <label htmlFor="email" className="sr-only">
-                    Email
+                  <label htmlFor="zip" className="sr-only">
+                    Zip
                   </label>
                   <input
                     id="zip"
@@ -88,7 +87,7 @@ export default function Home() {
                 </div>
               )}
               <button
-                type="submit"
+                onClick={(e) => handleSubmit(e)}
                 className="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                 Search
               </button>
